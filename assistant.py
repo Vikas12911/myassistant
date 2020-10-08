@@ -1,4 +1,6 @@
 import speech_recognition as sr
+import os
+import webbrowser
 import pyttsx3
 import datetime
 import wikipedia
@@ -37,11 +39,29 @@ def takeCommand():
     except Exception as e:
         print("say that again please..")
         return "None"
-    return speak(query)
+    return query
 
 if __name__ == "__main__":
-    wish()
+    
     while True:
-        query=takeCommand().lower
-        
+        query=takeCommand().lower()
+        if "wikipedia" in query:
+            speak("Searching wikipedia...")
+            print(query)
+            query=query.replace("wikipedia","")
+            print(query)
+            reasults=wikipedia.summary(query, sentences=2)
+            print(reasults)
+            speak(reasults)
+        elif "open youtube" in query:
+            webbrowser.open("youtube.com")
+        elif "open google" in query:
+            webbrowser.open("google.com")
+        elif "open stack overflow" in query:
+            webbrowser.open("stackoverflow.com")
+        elif "play music" in query:
+            p=r'C:\Users\vikas\Downloads\su.mp3'
+            os.startfile(p)
+        elif "quit" in query:
+            exit()
 
